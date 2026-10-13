@@ -11,7 +11,7 @@ Text Domain: harmonia-demo
   --hd-surface: #ffffff;
   --hd-ink: #1d1d1d;
   --hd-text: #333333;
-  --hd-muted: #9a9791;
+  --hd-muted: #6f6b66; /* 5.0:1 on white (site uses #9a9791, which fails) */
   --hd-line: #e3e1da;
   --hd-radius: 15px;
   --hd-max: 1350px;
@@ -21,6 +21,10 @@ Text Domain: harmonia-demo
 }
 
 * { box-sizing: border-box; }
+.hd-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--hd-ink); outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .hd-hero__bg { display: none; } .hd-hero { background: #2b2b2b url('assets/hero-poster.jpg') center / cover; } }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 body {
   margin: 0;
@@ -88,12 +92,15 @@ img { max-width: 100%; display: block; }
 .hd-icons .rentlyz-cart-button-host { display: inline-flex; align-items: center; height: 40px; }
 body .hd-icons .rentlyz-cart-btn { position: relative; height: 40px; padding: 0 2px; border: 0; background: transparent; font-family: var(--hd-font-display); font-weight: 400; gap: 6px; }
 body .hd-icons .rentlyz-cart-btn__label { display: none; }
-body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 4px; inset-inline-end: -8px; background: var(--hd-ink); }
+body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 2px; inset-inline-end: -10px; background: var(--hd-ink); }
 
 /* ---------- Hero: full-bleed photo with the embossed wordmark ---------- */
 .hd-hero { position: relative; min-height: 640px; display: grid; place-items: center; overflow: hidden; }
-.hd-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.82); }
-.hd-hero__content { position: relative; text-align: center; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 40px 16px; }
+.hd-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Guaranteed legibility for the white wordmark whatever the video frame shows. */
+.hd-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18) 40%, rgba(0,0,0,.42)); pointer-events: none; }
+.hd-hero__title { margin: 0; display: contents; }
+.hd-hero__content { position: relative; z-index: 1; text-align: center; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 40px 16px; }
 .hd-hero__sub { margin: 0; font-family: var(--hd-font-display); font-size: 20px; font-weight: 300; text-shadow: 0 1px 10px rgba(0,0,0,.4); }
 
 /* Wordmark: HARM ⟶ long ring ⟵ NIA (matches the site logo) */
@@ -119,7 +126,7 @@ body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 4px; inset-in
 /* Title band for inner pages */
 .hd-title-band { background: var(--hd-ink); color: #fff; text-align: center; padding: 26px 16px; }
 .hd-title-band h1 { color: #fff; font-size: clamp(32px, 5vw, 44px); font-weight: 300; }
-.hd-breadcrumb { max-width: calc(var(--hd-max) + 2 * var(--hd-gutter)); margin: 16px auto 0; padding: 0 var(--hd-gutter); font-size: 14px; line-height: 20px; color: #777; display: flex; align-items: center; gap: 8px; }
+.hd-breadcrumb { max-width: calc(var(--hd-max) + 2 * var(--hd-gutter)); margin: 16px auto 0; padding: 0 var(--hd-gutter); font-size: 14px; line-height: 20px; color: #5f5f5f; display: flex; align-items: center; gap: 8px; }
 .hd-breadcrumb a { display: inline-flex; align-items: center; height: 20px; font-size: 16px; line-height: 1; text-decoration: none; }
 .hd-breadcrumb span { display: inline-flex; align-items: center; height: 20px; }
 .hd-page { max-width: calc(var(--hd-max) + 2 * var(--hd-gutter)); margin: 0 auto; padding: 20px var(--hd-gutter) 48px; }
@@ -135,12 +142,12 @@ body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 4px; inset-in
 .hd-reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .hd-review { background: var(--hd-surface); border-radius: 10px; padding: 18px 20px; border: 1px solid var(--hd-line); }
 .hd-review header { display: flex; align-items: center; gap: 10px; }
-.hd-review__avatar { width: 36px; height: 36px; border-radius: 50%; background: #7e57c2; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; }
-.hd-review:nth-child(2) .hd-review__avatar { background: #26a69a; }
-.hd-review:nth-child(3) .hd-review__avatar { background: #ef6c00; }
-.hd-review:nth-child(4) .hd-review__avatar { background: #5c6bc0; }
+.hd-review__avatar { width: 36px; height: 36px; border-radius: 50%; background: #5e35b1; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; }
+.hd-review:nth-child(2) .hd-review__avatar { background: #00796b; }
+.hd-review:nth-child(3) .hd-review__avatar { background: #bf360c; }
+.hd-review:nth-child(4) .hd-review__avatar { background: #3949ab; }
 .hd-review__name { font-weight: 600; flex: 1; font-size: 15px; }
-.hd-review__g { font-weight: 700; color: #4285f4; font-family: 'Rubik', sans-serif; }
+.hd-review__g { font-weight: 700; color: #1a56c4; font-family: 'Rubik', sans-serif; }
 .hd-review__stars { color: #fbbc04; letter-spacing: 1px; margin: 8px 0 6px; }
 .hd-review p { margin: 0; font-size: 14px; color: var(--hd-text); }
 
@@ -162,13 +169,14 @@ body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 4px; inset-in
 .hd-footer__inner { max-width: var(--hd-max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 32px; }
 .hd-footer__brand p { font-size: 13px; color: var(--hd-text); max-width: 320px; }
 .hd-footer h4 { font-size: 20px; margin-bottom: 14px; font-weight: 600; }
-.hd-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.hd-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.hd-footer li a { display: inline-flex; align-items: center; min-height: 32px; }
 .hd-footer a { text-decoration: none; }
 .hd-footer a:hover { text-decoration: underline; }
 .hd-footer__contact li { display: flex; gap: 8px; align-items: center; }
 .hd-social { display: flex; gap: 12px; margin-top: 16px; }
 .hd-social a { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--hd-ink); display: inline-flex; align-items: center; justify-content: center; }
-.hd-footer__bar { max-width: var(--hd-max); margin: 40px auto 0; padding: 14px 0; border-top: 1px solid var(--hd-line); display: flex; justify-content: space-between; font-size: 12px; color: #777; }
+.hd-footer__bar { max-width: var(--hd-max); margin: 40px auto 0; padding: 14px 0; border-top: 1px solid var(--hd-line); display: flex; justify-content: space-between; font-size: 13px; color: #5f5f5f; }
 @media (max-width: 900px) { .hd-footer__inner { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .hd-footer__inner { grid-template-columns: 1fr; } }
 
@@ -177,7 +185,7 @@ body .rentlyz-root, body .rentlyz-overlay {
   --rentlyz-primary: #1d1d1d;
   --rentlyz-primary-contrast: #fff;
   --rentlyz-text: #333;
-  --rentlyz-muted: #9a9791;
+  --rentlyz-muted: #6f6b66;
   --rentlyz-border: #e3e1da;
   --rentlyz-radius: 14px;
   --rentlyz-font: var(--hd-font-body);
@@ -220,7 +228,7 @@ body .rentlyz-category-card {
   transition: box-shadow .25s;
 }
 body .rentlyz-category-card:hover { box-shadow: 0 0 10px rgba(0,0,0,.15); }
-body .rentlyz-category-card__corner { position: absolute; top: 12px; left: 12px; background: #f1f1f1; width: 26px; height: 26px; font-size: 12px; z-index: 1; }
+body .rentlyz-category-card__corner { position: absolute; top: 12px; left: 12px; background: #f1f1f1; width: 26px; height: 26px; font-size: 12px; z-index: 1; color: #3a3a44; }
 body .rentlyz-category-card__media {
   position: relative; flex: 1; padding: 0; margin: 0 0 12px; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #f3f3f3;
   display: flex; align-items: center; justify-content: center;
@@ -233,7 +241,7 @@ body .rentlyz-category-card__media img { position: relative; width: 100%; height
 body .rentlyz-category-card:hover .rentlyz-category-card__media img { transform: scale(1.04); }
 body .rentlyz-category-card__footer { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 body .rentlyz-category-card__title { font-family: var(--hd-font-display); font-weight: 400; font-size: 24px; color: var(--hd-ink); }
-body .rentlyz-category-card__link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--hd-text); white-space: nowrap; }
+body .rentlyz-category-card__link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--hd-text); white-space: nowrap; min-height: 24px; }
 body .rentlyz-category-grid > :first-child { grid-column: span 2; }
 body .rentlyz-category-grid > :first-child .rentlyz-category-card__media { aspect-ratio: auto; min-height: 0; }
 body .rentlyz-category-grid > :first-child .rentlyz-category-card__media img { object-fit: contain; height: 100%; width: auto; aspect-ratio: 1; }
