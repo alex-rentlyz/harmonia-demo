@@ -146,7 +146,11 @@ body .hd-icons .rentlyz-cart-btn__badge { position: absolute; top: 2px; inset-in
 .hd-review:nth-child(2) .hd-review__avatar { background: #00796b; }
 .hd-review:nth-child(3) .hd-review__avatar { background: #bf360c; }
 .hd-review:nth-child(4) .hd-review__avatar { background: #3949ab; }
-.hd-review__name { font-weight: 600; flex: 1; font-size: 15px; }
+.hd-review__who { flex: 1; display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.hd-review__name { font-weight: 600; font-size: 15px; }
+.hd-review__meta { font-size: 12px; color: var(--hd-muted); }
+.hd-review__time { font-size: 12px; color: var(--hd-muted); letter-spacing: 0; margin-inline-start: 6px; }
+.hd-review p { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .hd-review__g { font-weight: 700; color: #1a56c4; font-family: 'Rubik', sans-serif; }
 .hd-review__stars { color: #fbbc04; letter-spacing: 1px; margin: 8px 0 6px; }
 .hd-review p { margin: 0; font-size: 14px; color: var(--hd-text); }
