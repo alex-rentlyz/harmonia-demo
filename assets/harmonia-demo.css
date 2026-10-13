@@ -247,6 +247,12 @@ body .rentlyz-category-grid > :first-child .rentlyz-category-card__media img { o
   body .rentlyz-category-card__title { font-size: 18px; }
 }
 
+/* Category tiles with real product photos (harmonia.co.il): photo on white, no crop, no backdrop */
+body .rentlyz-category-grid--photos .rentlyz-category-card__media { background: #fff; border-radius: 0; }
+body .rentlyz-category-grid--photos .rentlyz-category-card__media::before { display: none; }
+body .rentlyz-category-grid--photos .rentlyz-category-card__media img { object-fit: contain; width: 100%; height: 100%; padding: 6px; }
+body .rentlyz-category-grid--photos > :first-child .rentlyz-category-card__media img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: contain; }
+
 /* Quick view, cart, modal */
 body .rentlyz-quickview__media img { border-radius: 12px; }
 body .rentlyz-line img { border-radius: 10px; }
