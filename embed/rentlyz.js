@@ -71,8 +71,17 @@
     (document.head || document.body).appendChild(el);
   }
 
+  // Cache busting: a `?v=` on the loader's own URL is forwarded to the app bundle.
+  var version = '';
+  try {
+    version = new URL(script.src).searchParams.get('v') || '';
+  } catch (e) {
+    /* ignore */
+  }
+  setOption('version', version);
+
   if (!window.__rentlyzAppLoaded) {
     window.__rentlyzAppLoaded = true;
-    load(opts.assetsURL + 'rentlyz-app.js');
+    load(opts.assetsURL + 'rentlyz-app.js' + (version ? '?v=' + encodeURIComponent(version) : ''));
   }
 })();
